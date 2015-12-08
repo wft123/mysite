@@ -66,6 +66,7 @@
 						<li><a href="#">3</a></li>
 						<li class="disable">4</li>
 						<li class="disable">5</li>
+						<li class="pg-next"><a href="#">다음 ▶</a></li>
 					</ul>	
 				</div>
 				<div class="bottom">

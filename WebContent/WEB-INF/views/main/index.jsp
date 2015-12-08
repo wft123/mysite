@@ -21,7 +21,7 @@
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">
-					<img id="profile" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/c12.12.155.155/923435_640327239315552_1584643451_n.jpg?oh=a06148a32cfedc106b07da787095f596&oe=544C85EF&__gda__=1413520834_d2143b0d0fffb85fa6b1ab9116643c38">
+					<img id="profile" src="/mysite/assets/images/profile.jpg">
 					<h2>안녕하세요. 안대혁의  mysite에 오신 것을 환영합니다.</h2>
 					<p>
 						이 사이트는  웹 프로그램밍 실습과제 예제 사이트입니다.<br>
