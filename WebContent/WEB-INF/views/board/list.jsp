@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn"uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +12,7 @@
 </head>
 <body>
 	<div id="container">
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-		
+		<c:import url="/WEB-INF/views/include/header.jsp"/>
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="" method="post">
@@ -29,12 +31,12 @@
 					
 					<c:forEach var="vo" items="${list }" varStatus="status">
 					<tr>
-						<td>${list.size()-status.count+1 }</td>
-						<td><a href="/mysite/board?a=view&no=${vo.getNo() }">${vo.getTitle() }</a></td>
-						<td>${vo.getMember_name() }</td>
-						<td>${vo.getView_cnt() }</td>
-						<td>${vo.getReg_date() }</td>
-						<td><a href="/mysite/board?a=delete&no=${vo.getNo() }" class="del">삭제</a></td>
+						<td>${list.size()-status.index }</td>
+						<td><a href="/mysite/board?a=view&no=${vo.no }">${vo.title }</a></td>
+						<td>${vo.member_name }</td>
+						<td>${vo.view_cnt }</td>
+						<td>${vo.reg_date }</td>
+						<td><a href="/mysite/board?a=delete&no=${vo.no }" class="del">삭제</a></td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -57,8 +59,8 @@
 				</div>				
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/include/navigation.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/navigation.jsp"/>
+		<c:import url="/WEB-INF/views/include/footer.jsp"/>
 	</div>
 </body>
 </html>

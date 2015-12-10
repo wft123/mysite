@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!doctype html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 </head>
 <body>
 	<div id="container">
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"/>
 		
 		<div id="content">
 			<div id="guestbook">
@@ -34,14 +36,14 @@
 					<li>
 						<table>
 							<tr>
-								<td>[ ${list.size()-status.count+1 } ]</td>
-								<td>${vo.getName() }</td>
-								<td>${vo.getReg_date() }</td>
-								<td><a href="/mysite/guestbook?a=deleteform&no=${vo.getNo() }">삭제</a></td>
+								<td>[ ${list.size()-status.index } ]</td>
+								<td>${vo.name }</td>
+								<td>${vo.reg_date }</td>
+								<td><a href="/mysite/guestbook?a=deleteform&no=${vo.no }">삭제</a></td>
 							</tr>
 							<tr>
 								<td colspan=4>
-									${vo.getMessage() }
+									${fn:replace(vo.message, newLineChar, '<br/>') }					
 								</td>
 							</tr>
 						</table>
@@ -52,8 +54,8 @@
 				
 			</div>
 		</div>
-		<jsp:include page="/WEB-INF/views/include/navigation.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/navigation.jsp"/>
+		<c:import url="/WEB-INF/views/include/footer.jsp"/>
 	</div>
 </body>
 </html>
