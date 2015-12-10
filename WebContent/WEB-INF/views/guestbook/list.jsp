@@ -1,6 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@page import="com.hanains.mysite.vo.GuestBookVo"%>
-<%@page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
