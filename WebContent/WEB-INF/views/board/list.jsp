@@ -3,6 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById('header').onclick = function() {
+			alert(this.value);
+			header.onclick = null;
+		}
+	};
+</script>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
@@ -12,7 +20,8 @@
 		<c:import url="/WEB-INF/views/include/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="/mysite/board" method="post">
+					<input type="hidden" name="pg" value="${param.pg }">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
@@ -28,7 +37,7 @@
 					
 					<c:forEach var="vo" items="${list }" varStatus="status">
 					<tr>
-						<td>${list.size()-status.index }</td>
+						<td>${boardSize-(status.index+((param.pg-1)*pageSize)) }</td>
 						<td><a href="/mysite/board?a=view&no=${vo.no }">${vo.title }</a></td>
 						<td>${vo.member_name }</td>
 						<td>${vo.view_cnt }</td>
@@ -37,16 +46,18 @@
 					</tr>
 					</c:forEach>
 				</table>
-				
+				<c:set var="pages" value="${boardSize/pageSize}" />
+				<c:set var="prev" value="1"/>
 				<div class="pager">
 					<ul>
-						<li class="pg-prev"><a href="#">◀ 이전</a></li>
-						<li><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li class="disable">4</li>
-						<li class="disable">5</li>
-						<li class="pg-next"><a href="#">다음 ▶</a></li>
+						<c:if test="${param.pg > 1 }"> <c:set var="prev" value="${param.pg-1 }"/>	</c:if>
+						<li class="pg-prev"><a href="/mysite/board?pg=${prev }">◀ 이전</a></li>
+						<c:forEach begin="1" end="${pages+(1-(pages%1))%1}" varStatus="status">
+							<li><a href="/mysite/board?pg=${status.index }">${status.index }</a></li>
+							<c:set var="next" value="${status.index }"/>
+						</c:forEach>
+						<c:if test="${param.pg < next }"> <c:set var="next" value="${param.pg+1 }"/>	</c:if>
+						<li class="pg-next"><a href="/mysite/board?pg=${next }">다음 ▶</a></li>
 					</ul>	
 				</div>
 				<div class="bottom">

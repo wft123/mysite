@@ -25,11 +25,10 @@ public class WriteAction implements Action {
 		vo.setContent(request.getParameter("content"));
 		if(session!=null){
 			vo.setMember_no(((UserVo)session.getAttribute("authUser")).getNo());
-			System.out.println(vo.getMember_no());
 		}
 		dao.insert(vo);
 		
-		HttpUtil.redirect(response, "/mysite/board");		
+		HttpUtil.redirect(response, "/mysite/board?pg=1");		
 	}
 
 }

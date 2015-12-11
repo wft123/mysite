@@ -12,6 +12,7 @@ import com.hanains.http.util.DBConnect;
 import com.hanains.mysite.vo.BoardVo;
 
 public class BoardDao {
+	static public final int PAGE_ROW = 5;
 	DBConnect dbconnect = null;
 	String sql="";
 	
@@ -135,9 +136,84 @@ public class BoardDao {
 		sql.append("member b ");
 		sql.append("where a.member_no = b.no ");
 		sql.append("order by a.reg_date desc");
-		
+
 		try {
 			pstmt = con.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new BoardVo();
+				vo.setNo(rs.getLong(1));
+				vo.setTitle(rs.getString(2));
+				vo.setMember_no(rs.getLong(3));
+				vo.setMember_name(rs.getString(4));
+				vo.setView_cnt(rs.getLong(5));
+				vo.setReg_date(rs.getString(6));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			DBClose.close(con,pstmt,rs);
+		}
+		
+		return list;
+	}
+	
+	public int getBoardSize(String kwd){
+		Connection con = dbconnect.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select count(*) from board where title like ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			if(kwd!=null) pstmt.setString(1, "%"+kwd+"%");
+			else pstmt.setString(1, "%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			DBClose.close(con,pstmt,rs);
+		}
+		return 0;
+	}
+	
+	public List<BoardVo> getListPage(int pageNo, String kwd){
+		List<BoardVo> list = new ArrayList<BoardVo>();
+		Connection con = dbconnect.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardVo vo = null;
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("select no, title, member_no, member_name,view_cnt, reg_date ");
+		sql.append("from (SELECT *");
+		sql.append("		FROM (");
+		sql.append(" 			SELECT rownum rnum, no, title, member_no, member_name,view_cnt, reg_date");
+		sql.append("    		FROM (");
+		sql.append("				 select a.no no,");
+		sql.append("						  a.title title,");
+		sql.append("						  a.member_no member_no,");
+		sql.append("						  b.name as member_name,");
+		sql.append("						  a.view_cnt view_cnt,");
+		sql.append("						  to_char(a.reg_date, 'yyyy-mm-dd hh:mi:ss') as reg_date");
+		sql.append("				 from board a, member b");
+		sql.append("				where a.member_no = b.no ");
+		sql.append("				AND title like ? ");
+		sql.append("				order by a.reg_date desc)");
+		sql.append("				) pagetable");
+		sql.append("			where rnum <= ?");
+		sql.append("		)");
+		sql.append("	where rnum >= ?");
+
+		try {
+			pstmt = con.prepareStatement(sql.toString());
+			if(kwd!=null) pstmt.setString(1, "%"+kwd+"%");
+			else pstmt.setString(1, "%");
+			pstmt.setLong(2, pageNo*PAGE_ROW);
+			pstmt.setLong(3, 1+(pageNo-1)*PAGE_ROW);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				vo = new BoardVo();

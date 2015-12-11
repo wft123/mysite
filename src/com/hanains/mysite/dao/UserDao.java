@@ -115,4 +115,41 @@ public class UserDao {
 			}
 		}
 	}
+	
+	public boolean idCheck(String email){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			//1. get Connection
+			conn = getConnection();
+			
+			//2. prepare statement
+			String sql = 
+				" select no, name, email" +
+				"   from member" +
+				"  where email=?";
+			pstmt = conn.prepareStatement( sql );
+			
+			//3. binding
+			pstmt.setString( 1, email );
+			
+			//4. execute SQL
+			rs = pstmt.executeQuery();
+			if( rs.next() ) return true;
+			
+		} catch( SQLException ex ) {
+			System.out.println( "SQL Error:" + ex );
+		} finally {
+			//5. clear resources
+			try{
+				if( rs != null ) rs.close();
+				if( pstmt != null ) pstmt.close();
+				if( conn != null ) conn.close();
+			} catch( SQLException ex ) {
+				ex.printStackTrace();
+			}
+		}
+		return false;
+	}
 }

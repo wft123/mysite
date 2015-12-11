@@ -17,10 +17,12 @@ public class ListAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardDao dao = new BoardDao();
-		List<BoardVo> list = dao.getList();		
-		
+		int page = Integer.parseInt(request.getParameter("pg"));
+		String kwd = request.getParameter("kwd");
+		List<BoardVo> list = dao.getListPage(page,kwd);
 		request.setAttribute("list", list);
-		
+		request.setAttribute("boardSize", dao.getBoardSize(kwd));
+		request.setAttribute("pageSize", dao.PAGE_ROW);
 		HttpUtil.forwarding(request, response, "/WEB-INF/views/board/list.jsp");
 	}
 
