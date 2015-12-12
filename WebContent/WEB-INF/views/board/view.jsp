@@ -33,6 +33,15 @@
 					</tr>
 				</table>
 				<div class="bottom">
+					<c:if test="${not empty authUser }">
+						<form action="/mysite/board" method="post">
+							<input type="hidden" name="a" value="replyform">
+							<input type="hidden" name="group" value="${vo.group_no }">
+							<input type="hidden" name="order" value="${vo.order_no }">
+							<input type="hidden" name="depth" value="${vo.depth }">
+							<input type="submit" value="답글">
+						</form>
+					</c:if>
 					<a href="/mysite/board?pg=1">글목록</a>
 					<a href="/mysite/board?a=modifyform&no=${vo.no }">글수정</a>
 				</div>

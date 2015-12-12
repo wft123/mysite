@@ -11,6 +11,11 @@
 		}
 	};
 </script>
+<style type="text/css">
+.title-td {
+	text-align:left;
+}	
+</style>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
@@ -38,11 +43,23 @@
 					<c:forEach var="vo" items="${list }" varStatus="status">
 					<tr>
 						<td>${boardSize-(status.index+((param.pg-1)*pageSize)) }</td>
-						<td><a href="/mysite/board?a=view&no=${vo.no }">${vo.title }</a></td>
+						<td class="title-td"><a href="/mysite/board?a=view&no=${vo.no }">
+							<c:if test="${vo.order_no>1 }">
+								<c:forEach begin="1" end="${vo.depth }">
+									&nbsp;
+								</c:forEach>
+								<img src="/mysite/assets/images/ico-reply.gif">
+							</c:if>
+							${vo.title }
+						</a></td>
 						<td>${vo.member_name }</td>
 						<td>${vo.view_cnt }</td>
 						<td>${vo.reg_date }</td>
-						<td><a href="/mysite/board?a=delete&no=${vo.no }" class="del">삭제</a></td>
+						<td>
+						<c:if test="${vo.member_no==authUser.no }">
+							<a href="/mysite/board?a=delete&no=${vo.no }" class="del">삭제</a>
+						</c:if>
+						</td>
 					</tr>
 					</c:forEach>
 				</table>

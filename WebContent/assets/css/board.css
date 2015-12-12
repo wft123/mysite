@@ -42,9 +42,13 @@ input#kwd	{
 .tbl-ex th, 
 .tbl-ex td	{ 
 	padding:8px;
-	text-align:center; 	 
+	text-align:center;
 }
-	
+
+.title-td {
+	text-align: left !important;
+}
+
 .tbl-ex th	{ 
 	border-top:2px solid #333;
 	border-bottom:2px solid #333; 
@@ -122,7 +126,7 @@ a#new-book	 {
 	cursor: pointer	
 }
 
-.board-form .bottom a {
+.board-form .bottom a, input{
 	margin-left: 10px;
 	padding:10px 20px 11px 20px 
 }
@@ -131,7 +135,7 @@ a.del	{
 	display:block;
 	width:20px;
 	height:20px; 
-	background:url("/mysite3/assets/images/recycle.png") no-repeat 0 0;
+	background:url("/mysite/assets/images/recycle.png") no-repeat 0 0;
 	font-size:0;
 }
 

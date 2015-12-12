@@ -17,7 +17,8 @@ public class ListAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardDao dao = new BoardDao();
-		int page = Integer.parseInt(request.getParameter("pg"));
+		int page =1;
+		if(request.getParameter("pg")!=null)	page = Integer.parseInt(request.getParameter("pg"));
 		String kwd = request.getParameter("kwd");
 		List<BoardVo> list = dao.getListPage(page,kwd);
 		request.setAttribute("list", list);

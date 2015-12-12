@@ -12,8 +12,11 @@
 		<c:import url="/WEB-INF/views/include/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="/mysite/board" >
-					<input type = "hidden" name = "a" value="write">
+				<form class="board-form" method="post" action="/mysite/board">
+					<input type = "hidden" name = "a" value="reply">
+					<input type = "hidden" name = "group" value="${group }">
+					<input type = "hidden" name = "order" value="${order }">
+					<input type = "hidden" name = "depth" value="${depth }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -27,12 +30,6 @@
 							<td>
 								<textarea id="content" name="content"></textarea>
 							</td>
-						</tr>
-						<tr>
-							<td class="label">파일</td>
-							<td>
-								<input type="file" name="file">
-							</td> 
 						</tr>
 					</table>
 					<div class="bottom">

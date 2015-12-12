@@ -1,15 +1,18 @@
 drop table board;
 drop sequence board_no_seq;
 
-CREATE TABLE board
-( 
-no           NUMBER(8),
-title        VARCHAR2(200) NOT NULL,
-content      VARCHAR2(4000) NOT NULL,
-member_no    NUMBER(8),
-view_cnt     NUMBER(10),
-reg_date     DATE NOT NULL
-) ;
+CREATE TABLE BOARD
+(
+   NO          NUMBER (8),
+   TITLE       VARCHAR2 (200),
+   CONTENT     VARCHAR2 (4000),
+   MEMBER_NO   NUMBER (8),
+   VIEW_CNT    NUMBER (10),
+   REG_DATE    DATE,
+   GROUP_NO    NUMBER (10) DEFAULT 0,
+   ORDER_NO    NUMBER (10) DEFAULT 1,
+   DEPTH       NUMBER (10) DEFAULT 0
+);
 
 ALTER TABLE board
 ADD ( CONSTRAINT board_no_pk PRIMARY KEY ( no ) );
