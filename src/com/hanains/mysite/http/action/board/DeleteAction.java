@@ -19,7 +19,7 @@ public class DeleteAction implements Action {
 		BoardDao dao = new BoardDao();
 		dao.delete(no);
 		
-		HttpUtil.redirect(response, "/mysite/board?pg=1");
+		HttpUtil.redirect(response, "/mysite/board");
 	}
 
 }

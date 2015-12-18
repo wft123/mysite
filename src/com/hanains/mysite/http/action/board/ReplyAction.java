@@ -34,7 +34,7 @@ public class ReplyAction implements Action {
 		}
 		dao.insert(vo);
 		
-		HttpUtil.redirect(response, "/mysite/board?pg=1");		
+		HttpUtil.redirect(response, "/mysite/board");		
 	}
 
 }

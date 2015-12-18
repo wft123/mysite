@@ -42,7 +42,7 @@
 							<input type="submit" value="답글">
 						</form>
 					</c:if>
-					<a href="/mysite/board?pg=1">글목록</a>
+					<a href="/mysite/board">글목록</a>
 					<a href="/mysite/board?a=modifyform&no=${vo.no }">글수정</a>
 				</div>
 			</div>

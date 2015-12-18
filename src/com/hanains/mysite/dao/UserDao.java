@@ -29,7 +29,7 @@ public class UserDao {
 			
 			//2. prepare statement
 			String sql = 
-				" select no, name, email" +
+				" select no, name, email, gender" +
 				"   from member" +
 				"  where email=?"+
 				"    and password=?";
@@ -45,11 +45,13 @@ public class UserDao {
 				Long no = rs.getLong( 1 );
 				String name = rs.getString( 2 );
 				String email2 = rs.getString( 3 );
+				String gender = rs.getString( 4 );
 				
 				vo = new UserVo();
 				vo.setNo(no);
 				vo.setName(name);
 				vo.setEmail(email2);
+				vo.setGender(gender);
 			}
 			
 		} catch( SQLException ex ) {

@@ -26,7 +26,7 @@ public class ModifyAction implements Action {
 		vo.setNo(no);
 		
 		dao.modify(vo);
-		HttpUtil.redirect(response, "/mysite/board?pg=1");
+		HttpUtil.redirect(response, "/mysite/board");
 	}
 
 }
